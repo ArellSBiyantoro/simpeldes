@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Antrian | Desa Sukamaju')
+@section('title', 'Antrian | Desa Gonoharjo')
 
 @section('page-title', 'Antrian')
 
