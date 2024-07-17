@@ -18,9 +18,13 @@
                         <i class="fa fa-file-alt fa-6x"></i>
                         <p class="text-lg mt-4">Pengajuan Surat Pengantar</p>
                     </a>
-                    <a class="layanan" href="{{ route('antrian') }}">
+                    <!-- <a class="layanan" href="{{ route('antrian') }}">
                         <i class="fa fa-users fa-6x"></i>
                         <p class="text-lg mt-4">Ambil Antrian Pelayanan</p>
+                    </a> -->
+                    <a class="layanan" href="">
+                        <i class="fa fa-users fa-6x"></i>
+                        <p class="text-lg mt-4">Kelompok Tani</p>
                     </a>
                     <a class="layanan" href="{{ route('pengaduan') }}">
                         <i class="fa fa-chalkboard-teacher fa-6x"></i>

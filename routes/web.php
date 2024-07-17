@@ -33,7 +33,7 @@ Route::get('/register', function(){
 ////////
 
 // Guest
-Route::get('/wellcome', [GuestController::class, 'wellcome'])->name('wellcome');
+Route::get('/', [GuestController::class, 'wellcome'])->name('wellcome');
 Route::get('/informasi', [GuestController::class, 'informasi'])->name('informasi');
 
 // Auth
