@@ -56,7 +56,7 @@
                                 <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
                                 <div class="w-100 px-4 py-3 d-flex" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
                                     <a href="#" id="pop">
-                                        <img id="imageresource" src="{{ asset('storage/' . $pengajuan->file_berkas) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
+                                        <img id="imageresource" src="{{ Storage::url($pengajuan->file_berkas) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
                                     </a>
                                 </div>
                             </div>
@@ -104,9 +104,11 @@
 
 @push('scripts')
     <script>
-        $("#pop").on("click", function() {
-            $('#imagepreview').attr('src', $('#imageresource').attr('src'));
-            $('#imagemodal').modal('show');
+        $(document).ready(function() {
+            $("#pop").on("click", function() {
+                $('#imagepreview').attr('src', $('#imageresource').attr('src'));
+                $('#imagemodal').modal('show');
+            });
         });
     </script>
 @endpush
