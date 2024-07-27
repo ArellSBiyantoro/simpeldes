@@ -99,7 +99,7 @@ class ServiceController extends Controller
         $data = $request->validated();
 
         // Upload file to storage.
-        $file_name = $request->file('file_berkas')->store('pengajuan', 'public');
+        $file_name = $request->file('file_berkas')->store('public/uploads/pengajuan');
 
         $data['file_berkas'] = $file_name;
         $data['orginal_name_berkas'] = $request->file('file_berkas')->getClientOriginalName();
