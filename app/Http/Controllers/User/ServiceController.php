@@ -8,7 +8,6 @@ use App\Models\Antrian;
 use App\Models\Pengaduan;
 use App\Models\Notifikasi;
 use App\Models\SuratPengantar;
-use App\Models\SuratPengantarFile;
 use App\Models\JenisPelayanan;
 
 use Illuminate\Http\Request;
@@ -94,24 +93,18 @@ class ServiceController extends Controller
 
         return view('users.service.pengajuan.pengajuan-detail', compact('pengajuan'));
     }
+
     public function pengajuanStore(StorePengajuanRequest $request)
     {
         $data = $request->validated();
 
         // Upload file to storage.
-        f ($request->hasFile('file_berkas')) {
-            foreach ($request->file('file_berkas') as $file) {
-                $path = $request->file('file_berkas')->store('public/uploads/pengajuan');
-                $filePaths[] = $path;
-                $originalNames[] = $file->getClientOriginalName();
-            }
-        }
+        $file_name = $request->file('file_berkas')->store('public/uploads/pengajuan');
 
-        $data['file_berkas'] = $filePaths;
-        $data['orginal_name_berkas'] = $originalNames;
+        $data['file_berkas'] = $file_name;
+        $data['orginal_name_berkas'] = $request->file('file_berkas')->getClientOriginalName();
 
         $pengajuan = SuratPengantar::create($data);
-
         Notifikasi::create([
             'user_id' => $data['user_id'],
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
