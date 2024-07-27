@@ -37,8 +37,11 @@
         </div>
 
         <div class="form-group">
-            <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
-            @foreach ($pengajuan->file_berkas as $index => $file)
+         <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
+            @php
+                $files = is_array($pengajuan->file_berkas) ? $pengajuan->file_berkas : explode(',', $pengajuan->file_berkas);
+            @endphp
+            @foreach ($files as $index => $file)
                 <div class="w-100 px-4 py-3 d-flex mb-2" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
                     <a href="#" class="pop" data-src="{{ asset('storage/' . $file) }}">
                         <img src="{{ asset('storage/' . $file) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">

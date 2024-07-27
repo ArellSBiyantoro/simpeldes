@@ -95,27 +95,45 @@ class ServiceController extends Controller
     }
 
     public function pengajuanStore(StorePengajuanRequest $request)
-    {
-        $data = $request->validated();
+{
+    $data = $request->validated();
+    $files = $request->file('file_berkas');
 
-        // Upload file to storage.
-        $file_name = $request->file('file_berkas')->store('public/uploads/pengajuan');
+    // Validate file
+    $request->validate([
+        'file_berkas.*' => 'required|mimes:jpg,jpeg,png,bmp,pdf|max:20480' // Maksimum 20MB
+    ]);
+    
 
-        $data['file_berkas'] = $file_name;
-        $data['orginal_name_berkas'] = $request->file('file_berkas')->getClientOriginalName();
+    // Store each file
+    if ($request->hasFile('file_berkas')) {
+        $file_names = [];
+        foreach ($files as $file) {
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/pengajuan', $filename);
+            $file_names[] = $filename;
+        }
 
-        $pengajuan = SuratPengantar::create($data);
-        Notifikasi::create([
-            'user_id' => $data['user_id'],
-            'status_notifikasi' => Notifikasi::STATUS_UNREAD,
-            'judul_notifikasi' => 'Pengajuan berhasil dibuat',
-            'isi_notifikasi' => 'Pengajuan anda berhasil dibuat, silahkan menunggu proses selanjutnya',
-            'link_notifikasi' => $pengajuan->id,
-            'tipe_notifikasi' => Notifikasi::TYPE_PENGAJUAN
-        ]);
-
-        return redirect()->route('pengajuan.detail', $pengajuan->id);
+        // Save the filenames as a JSON string or comma-separated string
+        $data['file_berkas'] = json_encode($file_names); // or use implode(',', $file_names);
+        $data['orginal_name_berkas'] = json_encode(array_map(function($file) {
+            return $file->getClientOriginalName();
+        }, $files));
     }
+
+    $pengajuan = SuratPengantar::create($data);
+
+    Notifikasi::create([
+        'user_id' => $data['user_id'],
+        'status_notifikasi' => Notifikasi::STATUS_UNREAD,
+        'judul_notifikasi' => 'Pengajuan berhasil dibuat',
+        'isi_notifikasi' => 'Pengajuan anda berhasil dibuat, silahkan menunggu proses selanjutnya',
+        'link_notifikasi' => $pengajuan->id,
+        'tipe_notifikasi' => Notifikasi::TYPE_PENGAJUAN
+    ]);
+
+    return redirect()->route('pengajuan.detail', $pengajuan->id);
+}
 
     // Pengaduan
     public function pengaduan()

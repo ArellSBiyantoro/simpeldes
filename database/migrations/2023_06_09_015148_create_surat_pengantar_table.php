@@ -15,8 +15,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('jenis_pelayanan_id')->constrained('jenis_pelayanan');
             $table->string('jenis_berkas');
-            $table->json('file_berkas'); // Change to JSON
-            $table->json('orginal_name_berkas'); // Change to JSON
+            $table->string('file_berkas'); // Change to JSON
+            $table->string('orginal_name_berkas'); // Change to JSON
             $table->integer('status_pengajuan')->default(1);
             $table->timestamps();
         });
