@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SuratPengantar extends Model
 {
+    use HasFactory;
+
     protected $table = 'surat_pengantar';
 
     protected $fillable = [
@@ -15,6 +18,11 @@ class SuratPengantar extends Model
         'file_berkas',
         'orginal_name_berkas',
         'status_pengajuan'
+    ];
+
+    protected $casts = [
+        'file_berkas' => 'array',
+        'orginal_name_berkas' => 'array',
     ];
 
     const STATUS_WAITING = 1;
@@ -47,7 +55,7 @@ class SuratPengantar extends Model
                 $status = "<span class='badge badge-danger'>Verifikasi Gagal</span>";
                 break;
             case self::STATUS_DONE:
-                $status = "<span class='badge badge-primary'>Selesai</span>";
+                $status = "<span class='badge badge-secondary'>Selesai</span>";
                 break;
         }
 

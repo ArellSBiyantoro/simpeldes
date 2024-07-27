@@ -38,11 +38,14 @@
 
         <div class="form-group">
             <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
-            <div class="w-100 px-4 py-3 d-flex" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
-                <a href="#" id="pop">
-                    <img id="imageresource" src="{{ asset('storage/' . $pengajuan->file_berkas) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
-                </a>
-            </div>
+            @foreach ($pengajuan->file_berkas as $index => $file)
+                <div class="w-100 px-4 py-3 d-flex mb-2" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
+                    <a href="#" class="pop" data-src="{{ asset('storage/' . $file) }}">
+                        <img src="{{ asset('storage/' . $file) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
+                    </a>
+                    <span class="ml-3">{{ $pengajuan->orginal_name_berkas[$index] }}</span>
+                </div>
+            @endforeach
         </div>
 
         <div class="form-group">
@@ -95,8 +98,9 @@
 
 @push('scripts')
     <script>
-        $("#pop").on("click", function() {
-            $('#imagepreview').attr('src', $('#imageresource').attr('src'));
+        $(".pop").on("click", function(event) {
+            event.preventDefault();
+            $('#imagepreview').attr('src', $(this).data('src'));
             $('#imagemodal').modal('show');
         });
     </script>
