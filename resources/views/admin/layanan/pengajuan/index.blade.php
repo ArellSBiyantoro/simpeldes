@@ -39,16 +39,26 @@
                                         <th>Jenis Pelayanan</th>
                                         <th>Status Pengajuan</th>
                                         <th>Aksi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($pengajuan as $item)
                                         <tr>
-                                            <td>{{ $item->created_at }}</td>
+                                            <td style="max-width: 100px;">{{ $item->created_at }}</td>
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->user->nik }}</td>
-                                            <td>{{ $item->jenisPelayanan->nama_pelayanan }}</td>
+                                            <td style="max-width: 150px;">{{ $item->jenisPelayanan->nama_pelayanan }}</td>
                                             <td>{!! $item->status !!}</td>
+                                            <td>
+                                                @php
+                                                    $direct_num = $item->user->phone_number;
+                                                    $direct_num = '+62'.substr($direct_num,1);
+                                                @endphp
+                                                <a class="btn btn-info btn-sm hubungi" href="https://wa.me/{{ $direct_num }}" target="_blank">
+                                                    Hubungi
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('admin.pengajuan.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
                                                 <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Status</button>

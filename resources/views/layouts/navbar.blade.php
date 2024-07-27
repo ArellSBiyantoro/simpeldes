@@ -21,28 +21,16 @@
                         Layanan
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('antrian') }}">Pengambilan Antrian</a>
+                        <!-- <a class="dropdown-item" href="{{ route('antrian') }}">Pengambilan Antrian</a> -->
                         <a class="dropdown-item" href="{{ route('pengajuan') }}">Pengajuan Surat Pengantar</a>
                         <a class="dropdown-item" href="{{ route('pengaduan') }}">Aduan Masyarakat</a>
                     </div>
                 </li>
-                <li class="nav-item mr-4">
+                <!-- <li class="nav-item mr-4">
                     <a class="nav-link font-weight-bold" href="{{ route('informasi') }}">Informasi</a>
-                </li>
+                </li> -->
                 <li class="nav-item mr-4">
                     <a class="nav-link font-weight-bold" href="{{ route('wellcome') }}#kontak">Kontak</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link font-weight-bold btn rounded-pill mr-2" href="{{ route('register.user') }}" 
-                    style="
-                    background-color: #FFFFFF;
-                    color: #51839C;
-                    border: 2px solid #51839C;
-                    padding: 8px 42px;
-                    font-size: 16px;
-                    cursor: pointer;
-                    transition: background-color 0.3s, color 0.3s;"
-                    >Daftar</a>
                 </li>
                 @if (Auth::check())
                     <li class="nav-item dropdown mr-4">
@@ -68,6 +56,18 @@
                         </div>
                     </li>
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold btn rounded-pill mr-2" href="{{ route('register.user') }}" 
+                        style="
+                        background-color: #FFFFFF;
+                        color: #51839C;
+                        border: 2px solid #51839C;
+                        padding: 8px 42px;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: background-color 0.3s, color 0.3s;"
+                        >Daftar</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold btn rounded-pill" href="{{ route('login') }}" style="background-color: #51839C; color: #FFFFFF; padding: 8px 42px;">Login</a>
                     </li>
