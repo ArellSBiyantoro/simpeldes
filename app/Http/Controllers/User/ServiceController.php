@@ -98,13 +98,10 @@ class ServiceController extends Controller
     {
         $data = $request->validated();
 
-        $filePaths = [];
-        $originalNames = [];
-
-        // Upload multiple files to storage.
-        if ($request->hasFile('file_berkas')) {
+        // Upload file to storage.
+        f ($request->hasFile('file_berkas')) {
             foreach ($request->file('file_berkas') as $file) {
-                $path = $file->store('pengajuan', 'public');
+                $path = $request->file('file_berkas')->store('public/uploads/pengajuan');
                 $filePaths[] = $path;
                 $originalNames[] = $file->getClientOriginalName();
             }
