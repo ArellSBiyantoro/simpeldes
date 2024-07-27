@@ -67,7 +67,7 @@
                     </div>
                 @endif
             </div>
-
+<!-- 
             <div class="form-group">
                 <label for="multiple_files" class="mb-3">Upload File Pendukung (Multiple)</label>
                 <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('multiple_files')) is-invalid @endif" id="multiple_files" name="multiple_files[]" multiple value="{{ old('multiple_files') }}" placeholder="Masukkan file anda"
@@ -77,7 +77,7 @@
                         {{ $errors->first('multiple_files') }}
                     </div>
                 @endif
-            </div>
+            </div> -->
 
             <div class="d-flex w-100 justify-content-end mt-5">
                 <a href="{{ route('dashboard.user') }}" class="btn btn-outline-secondary px-5 py-2 rounded-pill mr-3">Kembali</a>
