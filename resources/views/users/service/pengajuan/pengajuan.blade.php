@@ -58,9 +58,8 @@
             </div>
 
             <div class="form-group">
-                <label for="file_berkas" class="mb-3">Upload File Pendukung (Single)</label>
-                <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('file_berkas')) is-invalid @endif" id="file_berkas" name="file_berkas" value="{{ old('file_berkas') }}" placeholder="Masukkan file anda"
-                    accept="image/*,application/pdf">
+                <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
+                <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('file_berkas')) is-invalid @endif" id="file_berkas" name="file_berkas" multiple value="{{ old('file_berkas') }}" accept="image/*,application/pdf">
                 @if ($errors->has('file_berkas'))
                     <div class="invalid-feedback">
                         {{ $errors->first('file_berkas') }}

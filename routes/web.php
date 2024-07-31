@@ -97,4 +97,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/pengaduan', [AdminServiceController::class, 'pengaduan'])->name('admin.pengaduan.index');
     Route::get('/pengaduan/{id}', [AdminServiceController::class, 'pengaduanDetail'])->name('admin.pengaduan.show');
     Route::put('/pengaduan/{id}', [AdminServiceController::class, 'pengaduanUpdate'])->name('admin.pengaduan.update');
+
+    // --- Download
+    Route::get('pengajuan/download/{id}', [ServiceController::class, 'pengajuanDownload'])->name('pengajuan.download');
+
 });

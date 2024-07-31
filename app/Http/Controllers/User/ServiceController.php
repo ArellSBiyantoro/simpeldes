@@ -13,6 +13,7 @@ use App\Models\JenisPelayanan;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Antrian\StoreAntrianRequest;
 use App\Http\Requests\User\Pengajuan\StorePengajuanRequest;
+use Illuminate\Support\Facades\Storage; // Add this for file storage access
 
 class ServiceController extends Controller
 {
@@ -115,6 +116,28 @@ class ServiceController extends Controller
         ]);
 
         return redirect()->route('pengajuan.detail', $pengajuan->id);
+    }
+
+    // Add this method for downloading file pengajuan
+    public function pengajuanDownload($id)
+    {
+        $pengajuan = SuratPengantar::findOrFail($id);
+
+        // Cek jika pengajuan milik user
+        if ($pengajuan->user_id != auth()->user()->id) {
+            return redirect()->route('dashboard.user');
+        }
+
+        // Get file path
+        $file_path = storage_path('app/' . $pengajuan->file_berkas);
+
+        // Check if file exists
+        if (!file_exists($file_path)) {
+            return redirect()->back()->with('error', 'File tidak ditemukan');
+        }
+
+        // Download file
+        return response()->download($file_path, $pengajuan->orginal_name_berkas);
     }
 
     // Pengaduan
