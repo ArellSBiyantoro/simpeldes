@@ -102,8 +102,9 @@
 
 @push('scripts')
     <script>
-        $("#pop").on("click", function() {
-            $('#imagepreview').attr('src', $('#imageresource').attr('src'));
+        $(".pop").on("click", function(event) {
+            event.preventDefault();
+            $('#imagepreview').attr('src', $(this).data('src'));
             $('#imagemodal').modal('show');
         });
     </script>

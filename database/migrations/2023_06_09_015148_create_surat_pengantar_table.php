@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +15,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('jenis_pelayanan_id')->constrained('jenis_pelayanan');
             $table->string('jenis_berkas');
-            $table->string('file_berkas');
-            $table->string('orginal_name_berkas');
+            $table->string('file_berkas'); // Change to JSON
+            $table->string('orginal_name_berkas'); // Change to JSON
             $table->integer('status_pengajuan')->default(1);
             $table->timestamps();
         });
