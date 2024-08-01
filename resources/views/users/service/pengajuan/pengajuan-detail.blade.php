@@ -7,6 +7,7 @@
 @section('content')
 
     <div class="p-5">
+        
 
         <h3 class="font-weight-bold">Data yang Anda Ajukan sudah Masuk ke dalam Sistem Kami</h3>
         <p class="mb-4">Periksa Notifikasi anda secara berkala untuk meninjau status berkas yang anda ajukan</p>
