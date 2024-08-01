@@ -53,11 +53,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
+                                <label for="file_berkas" class="mb-3">File Pendukung</label>
                                 <div class="w-100 px-4 py-3 d-flex" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
                                     <a href="#" id="pop">
                                         <img id="imageresource" src="{{ Storage::url($pengajuan->file_berkas) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
                                     </a>
+                                </div>
+                                <div class="mt-3">
+                                    <a href="{{ route('admin.pengajuan.download', $pengajuan->id) }}" class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">Download File</a>
                                 </div>
                             </div>
 
@@ -91,9 +94,10 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="" id="imagepreview" class="mx-auto" style="max-width: 800px;">
+                    <img src="" id="imagepreview" class="mx-auto" style="max-width: 100%;">
                 </div>
                 <div class="modal-footer">
+                    <a type="button" class="btn btn-primary btn-green-pastel" href="{{ Storage::url($pengajuan->file_berkas) }}" target="_blank">Open</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>

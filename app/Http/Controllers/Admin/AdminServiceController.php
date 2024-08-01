@@ -9,6 +9,7 @@ use App\Models\Pengaduan;
 use App\Models\Notifikasi;
 use App\Models\SuratPengantar;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\UpdateStatusPengajuanRequest;
 
 class AdminServiceController extends Controller
@@ -73,6 +74,18 @@ class AdminServiceController extends Controller
 
         return redirect()->route('admin.pengajuan.index')->with('success', 'Status pengajuan berhasil diubah!');
     }
+
+    public function downloadPengajuanFile($id)
+    {
+        $pengajuan = SuratPengantar::findOrFail($id);
+
+        if ($pengajuan->file_berkas && Storage::exists($pengajuan->file_berkas)) {
+            return Storage::download($pengajuan->file_berkas);
+        }
+
+        return redirect()->back()->with('error', 'File tidak ditemukan atau tidak tersedia.');
+    }
+
 
     // Pengaduan
     public function pengaduan()

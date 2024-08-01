@@ -100,5 +100,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     // --- Download
     Route::get('pengajuan/download/{id}', [ServiceController::class, 'pengajuanDownload'])->name('pengajuan.download');
+    // --- Download admin
+    Route::get('/admin/pengajuan/{id}/download', [AdminServiceController::class, 'downloadPengajuanFile'])->name('admin.pengajuan.download');
 
 });
