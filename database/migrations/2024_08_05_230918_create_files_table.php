@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_pengantar', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('jenis_pelayanan_id')->constrained('jenis_pelayanan');
-            $table->string('jenis_berkas');
-            $table->integer('status_pengajuan')->default(1);
+            $table->foreignId('surat_pengantar_id')->constrained('surat_pengantar')->onDelete('cascade');
+            $table->string('file_berkas');
+            $table->string('original_name');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_pengantar');
+        Schema::dropIfExists('files');
     }
 };

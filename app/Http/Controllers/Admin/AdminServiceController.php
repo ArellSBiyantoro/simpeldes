@@ -42,7 +42,7 @@ class AdminServiceController extends Controller
     public function pengajuanUpdate(UpdateStatusPengajuanRequest $request, $id)
     {
         $data = $request->validated();
-
+        
         $pengajuan = SuratPengantar::findOrFail($id);
         $pengajuan->update($data);
 

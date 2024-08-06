@@ -13,7 +13,10 @@ use App\Models\JenisPelayanan;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Antrian\StoreAntrianRequest;
 use App\Http\Requests\User\Pengajuan\StorePengajuanRequest;
+use App\Models\File;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage; // Add this for file storage access
+use ZipArchive;
 
 class ServiceController extends Controller
 {
@@ -98,14 +101,22 @@ class ServiceController extends Controller
     public function pengajuanStore(StorePengajuanRequest $request)
     {
         $data = $request->validated();
-
-        // Upload file to storage.
-        $file_name = $request->file('file_berkas')->store('public/uploads/pengajuan');
-
-        $data['file_berkas'] = $file_name;
-        $data['orginal_name_berkas'] = $request->file('file_berkas')->getClientOriginalName();
-
+        $data = Arr::except($data, ['file_berkas']);
         $pengajuan = SuratPengantar::create($data);
+
+        if ($request->hasFile('file_berkas')) {
+            foreach ($request->file('file_berkas') as $file) {
+                $fileName = $file->store('public/uploads/pengajuan');
+                $originalName = $file->getClientOriginalName();
+
+                File::create([
+                    'surat_pengantar_id' => $pengajuan->id,
+                    'file_berkas' => $fileName,
+                    'original_name' => $originalName,
+                ]);
+            }
+        }
+
         Notifikasi::create([
             'user_id' => $data['user_id'],
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
@@ -129,7 +140,7 @@ class ServiceController extends Controller
         }
 
         // Get file path
-        $file_path = storage_path('app/' . $pengajuan->file_berkas);
+        $file_path = storage_path('storage/app/public/uploads/pengajuan' . $pengajuan->file_berkas);
 
         // Check if file exists
         if (!file_exists($file_path)) {
@@ -139,6 +150,7 @@ class ServiceController extends Controller
         // Download file
         return response()->download($file_path, $pengajuan->orginal_name_berkas);
     }
+
 
     // Pengaduan
     public function pengaduan()

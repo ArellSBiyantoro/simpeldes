@@ -53,4 +53,9 @@ class SuratPengantar extends Model
 
         return $status;
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
 }

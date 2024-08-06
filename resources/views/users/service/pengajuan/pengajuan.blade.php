@@ -59,24 +59,13 @@
 
             <div class="form-group">
                 <label for="file_berkas" class="mb-3">Upload File Pendukung</label>
-                <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('file_berkas')) is-invalid @endif" id="file_berkas" name="file_berkas" multiple value="{{ old('file_berkas') }}" accept="image/*,application/pdf">
-                @if ($errors->has('file_berkas'))
+                <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('file_berkas.*')) is-invalid @endif" id="file_berkas" name="file_berkas[]" multiple value="{{ old('file_berkas') }}" accept="image/*,application/pdf">
+                @if ($errors->has('file_berkas.*'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('file_berkas') }}
+                        {{ $errors->first('file_berkas.*') }}
                     </div>
                 @endif
             </div>
-<!-- 
-            <div class="form-group">
-                <label for="multiple_files" class="mb-3">Upload File Pendukung (Multiple)</label>
-                <input type="file" class="form-control form-control-lg rounded-pill text-md @if ($errors->has('multiple_files')) is-invalid @endif" id="multiple_files" name="multiple_files[]" multiple value="{{ old('multiple_files') }}" placeholder="Masukkan file anda"
-                    accept="image/*,application/pdf">
-                @if ($errors->has('multiple_files'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('multiple_files') }}
-                    </div>
-                @endif
-            </div> -->
 
             <div class="d-flex w-100 justify-content-end mt-5">
                 <a href="{{ route('dashboard.user') }}" class="btn btn-outline-secondary px-5 py-2 rounded-pill mr-3">Kembali</a>

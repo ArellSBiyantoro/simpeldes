@@ -25,7 +25,8 @@ class StorePengajuanRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'jenis_pelayanan_id' => 'required|exists:jenis_pelayanan,id',
             'jenis_berkas' => 'required|string',
-            'file_berkas' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'file_berkas'=> 'required|array',
+            'file_berkas.*' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ];
     }
 
@@ -41,10 +42,10 @@ class StorePengajuanRequest extends FormRequest
             'jenis_pelayanan_id.exists' => 'Jenis Pelayanan tidak ditemukan',
             'jenis_berkas.required' => 'Jenis Berkas tidak boleh kosong',
             'jenis_berkas.string' => 'Jenis Berkas harus berupa string',
-            'file_berkas.required' => 'File Berkas tidak boleh kosong',
-            'file_berkas.file' => 'File Berkas harus berupa file',
-            'file_berkas.mimes' => 'File Berkas harus berupa gambar atau pdf',
-            'file_berkas.max' => 'File Berkas maksimal 2MB',
+            'file_berkas.*.required' => 'File Berkas tidak boleh kosong',
+            'file_berkas.*.file' => 'File Berkas harus berupa file',
+            'file_berkas.*.mimes' => 'File Berkas harus berupa gambar atau pdf',
+            'file_berkas.*.max' => 'File Berkas maksimal 2MB',
         ];
     }
 }
