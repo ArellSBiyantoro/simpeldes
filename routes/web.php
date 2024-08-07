@@ -10,6 +10,7 @@ use App\Http\Controllers\User\ServiceController;
 use App\Http\Controllers\Admin\WargaDesaController;
 use App\Http\Controllers\Admin\AdminDesaController;
 use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\TaniCotroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,12 @@ Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'loginUser'])->name('login.user');
 Route::post('/register', [AuthController::class, 'registerUser'])->name('register.user');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+// Tani
+Route::get('/tani', function(){
+    return view('tani.tani');   
+})->name('tani.index');
 
 // User
 Route::middleware(['auth', 'user'])->group(function () {
@@ -99,7 +106,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/pengaduan/{id}', [AdminServiceController::class, 'pengaduanUpdate'])->name('admin.pengaduan.update');
 
     // --- Download
-    Route::get('pengajuan/download/{id}', [ServiceController::class, 'pengajuanDownload'])->name('pengajuan.download');
+    // Route::get('pengajuan/download/{id}', [ServiceController::class, 'pengajuanDownload'])->name('pengajuan.download');
+    Route::get('/download-files/{surat_pengantar_id}', [ServiceController::class, 'downloadFiles'])->name('pengajuan.download');
     // --- Download admin
     Route::get('/admin/pengajuan/{id}/download', [AdminServiceController::class, 'downloadPengajuanFile'])->name('admin.pengajuan.download');
 

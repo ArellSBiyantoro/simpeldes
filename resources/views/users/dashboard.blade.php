@@ -22,7 +22,7 @@
                         <i class="fa fa-users fa-6x"></i>
                         <p class="text-lg mt-4">Ambil Antrian Pelayanan</p>
                     </a> -->
-                    <a class="layanan" href="">
+                    <a class="layanan" href="{{route('tani.index')}}">
                         <i class="fa fa-users fa-6x"></i>
                         <p class="text-lg mt-4">Kelompok Tani</p>
                     </a>

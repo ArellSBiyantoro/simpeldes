@@ -16,6 +16,7 @@ use App\Http\Requests\User\Pengajuan\StorePengajuanRequest;
 use App\Models\File;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage; // Add this for file storage access
+
 use ZipArchive;
 
 class ServiceController extends Controller
@@ -129,26 +130,34 @@ class ServiceController extends Controller
         return redirect()->route('pengajuan.detail', $pengajuan->id);
     }
 
-    // Add this method for downloading file pengajuan
-    public function pengajuanDownload($id)
+    //downloading file pengajuan as zip
+    public function downloadFiles($surat_pengantar_id)
     {
-        $pengajuan = SuratPengantar::findOrFail($id);
-
-        // Cek jika pengajuan milik user
-        if ($pengajuan->user_id != auth()->user()->id) {
-            return redirect()->route('dashboard.user');
+        // Mengambil semua file yang terkait dengan surat_pengantar_id
+        $files = File::where('surat_pengantar_id', $surat_pengantar_id)->get();
+    
+        // Nama file ZIP yang akan didownload
+        $zipFileName = 'files_' . $surat_pengantar_id . '.zip';
+        $zipFilePath = storage_path('app/public/uploads/pengajuan/' . $zipFileName);
+    
+        // Membuat instance ZipArchive
+        $zip = new ZipArchive;
+    
+        // Membuka file ZIP untuk ditulisi
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            // Menambahkan setiap file ke dalam ZIP
+            foreach ($files as $file) {
+                $filePath = storage_path('app/' . $file->file_berkas);
+                $zip->addFile($filePath, $file->original_name);
+            }
+            // Menutup file ZIP
+            $zip->close();
+        } else {
+            return response()->json(['error' => 'Tidak dapat membuat file ZIP'], 500);
         }
-
-        // Get file path
-        $file_path = storage_path('storage/app/public/uploads/pengajuan' . $pengajuan->file_berkas);
-
-        // Check if file exists
-        if (!file_exists($file_path)) {
-            return redirect()->back()->with('error', 'File tidak ditemukan');
-        }
-
-        // Download file
-        return response()->download($file_path, $pengajuan->orginal_name_berkas);
+    
+        // Mengirim file ZIP ke klien
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
     }
 
 
