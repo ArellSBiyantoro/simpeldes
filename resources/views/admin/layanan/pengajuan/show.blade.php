@@ -54,16 +54,41 @@
 
                             <div class="form-group">
                                 <label for="file_berkas" class="mb-3">File Pendukung</label>
-                                <div class="w-100 px-4 py-3 d-flex" style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
+                                <div class="w-100 px-4 py-3 d-flex"
+                                    style="background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 15px;">
                                     <a href="#" id="pop">
-                                        <img id="imageresource" src="{{ Storage::url($pengajuan->file_berkas) }}" alt="Berkas Pendukung" class="img-fluid" style="height: 150px; border-radius: 15px; object-fit: cover;">
-                                    </a>
-                                </div>
-                                <div class="mt-3">
-                                    <a href="{{ route('admin.pengajuan.download', $pengajuan->id) }}" class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">Download File</a>
-                                </div>
-                            </div>
+                                        <div class="container">
+                                            @if ($pengajuan->files->count() >= 3)
+                                                <div class="row">
+                                                    @foreach ($pengajuan->files as $index => $file)
+                                                        <div class="col-md-4 mb-3">
+                                                            <img id="imageresource" src="{{ Storage::url($file->file_berkas) }}"
+                                                                alt="{{ $file->original_name }}" class="img-fluid"
+                                                                style="height: 150px; border-radius: 15px; object-fit: cover;">
+                                                        </div>
+                                                        @if (($index + 1) % 3 == 0 && $index + 1 != $pengajuan->files->count())
+                                                </div>
+                                                <div class="row">
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        @foreach ($pengajuan->files as $index => $file)
+                                            <img id="imageresource" src="{{ Storage::url($file->file_berkas) }}"
+                                                alt="{{ $file->original_name }}" class="img-fluid"
+                                                style="height: 150px; border-radius: 15px; object-fit: cover;">
+                                        @endforeach
+                                        @endif
+                                    </div>
 
+                                    </a>
+                            </div>
+                            <div class="mt-3">
+                                <a href="{{ route('pengajuan.download', $pengajuan->id) }}"
+                                    class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">
+                                    Download File
+                                </a>
+                                
                             <div class="form-group">
                                 <label for="status" class="mb-3">Status Pengajuan</label>
                                 <input type="text" class="form-control form-control-lg rounded-pill text-md" id="status" name="status"

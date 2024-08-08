@@ -70,9 +70,9 @@
                             style="height: 150px; border-radius: 15px; object-fit: cover;">
                     @endforeach
                     @endif
-            </div>
+                </div>
 
-            </a>
+                </a>
         </div>
         <div class="mt-3">
             <a href="{{ route('pengajuan.download', $pengajuan->id) }}"

@@ -11,6 +11,7 @@ use App\Models\SuratPengantar;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\UpdateStatusPengajuanRequest;
+use ZipArchive;
 
 class AdminServiceController extends Controller
 {
@@ -78,13 +79,47 @@ class AdminServiceController extends Controller
     public function downloadPengajuanFile($id)
     {
         $pengajuan = SuratPengantar::findOrFail($id);
-
-        if ($pengajuan->file_berkas && Storage::exists($pengajuan->file_berkas)) {
-            return Storage::download($pengajuan->file_berkas);
+    
+        $files = $pengajuan->files;
+    
+        // Jika hanya ada satu file, langsung unduh
+        if ($files->count() === 1) {
+            $file = $files->first();
+            $file_path = storage_path('app/' . $file->file_berkas);
+            $original_name = $file->original_name;
+    
+            if (file_exists($file_path)) {
+                return response()->download($file_path, $original_name);
+            } else {
+                return redirect()->back()->with('error', 'File tidak ditemukan');
+            }
         }
-
-        return redirect()->back()->with('error', 'File tidak ditemukan atau tidak tersedia.');
+    
+        // Jika ada lebih dari satu file, buat file ZIP
+        $zip = new ZipArchive;
+        $zipFileName = 'pengajuan_files_' . time() . '.zip';
+        $zipFilePath = storage_path('app/public/' . $zipFileName);
+    
+        if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
+            foreach ($files as $file) {
+                $file_path = storage_path('app/' . $file->file_berkas);
+    
+                if (file_exists($file_path)) {
+                    $zip->addFile($file_path, $file->original_name);
+                } else {
+                    $zip->close(); // Close the zip before returning an error
+                    return redirect()->back()->with('error', 'One or more files are missing.');
+                }
+            }
+            $zip->close();
+    
+            // Unduh file ZIP
+            return response()->download($zipFilePath)->deleteFileAfterSend(true);
+        } else {
+            return redirect()->back()->with('error', 'Could not create ZIP file.');
+        }
     }
+    
 
 
     // Pengaduan
