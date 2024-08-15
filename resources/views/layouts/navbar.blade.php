@@ -26,9 +26,9 @@
                         <a class="dropdown-item" href="{{ route('pengaduan') }}">Aduan Masyarakat</a>
                     </div>
                 </li>
-                <!-- <li class="nav-item mr-4">
+                <li class="nav-item mr-4">
                     <a class="nav-link font-weight-bold" href="{{ route('informasi') }}">Informasi</a>
-                </li> -->
+                </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link font-weight-bold" href="{{ route('wellcome') }}#kontak">Kontak</a>
                 </li>
