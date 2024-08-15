@@ -1,6 +1,21 @@
 @extends('layouts.guest')
 
 @section('title', '| Dashboard')
+<style>
+        .container1 {
+            max-width: 1200px;
+            margin: 48 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+    </style>
 
 @section('content')
     <div class="h-screen">
@@ -13,7 +28,7 @@
                     <h1 class="text-bold mb-4">Selamat Datang, {{ auth()->user()->name ?? 'Pengguna' }}</h1>
                     <p class="text-lg">Butuh pelayanan apa hari ini?</p>
                 </div>
-                <div class="w-100 d-flex justify-content-around align-items-center mt-4">
+                <div class="grid">
                     <a class="layanan" href="{{ route('pengajuan') }}">
                         <i class="fa fa-file-alt fa-6x"></i>
                         <p class="text-lg mt-4">Pengajuan Surat Pengantar</p>
