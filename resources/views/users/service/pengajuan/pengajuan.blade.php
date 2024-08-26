@@ -49,12 +49,18 @@
                     <option value="" selected disabled>Pilih Berkas</option>
                     <option value="1">Kartu Keluarga</option>
                     <option value="2">KTP/SIM/Kartu Pelajar</option>
+                    <option value="3">Lain-Lain</option>
                 </select>
                 @if ($errors->has('jenis_berkas'))
                     <div class="invalid-feedback">
                         {{ $errors->first('jenis_berkas') }}
                     </div>
                 @endif
+            </div>
+
+            <div class="form-group d-none" id="jenis_berkas_lainnya_group">
+                <label for="jenis_berkas_lainnya" class="mb-3">Jenis Berkas Pendukung Lainnya</label>
+                <input type="text" class="form-control form-control-lg rounded-pill text-md" id="jenis_berkas_lainnya" name="jenis_berkas_lainnya" placeholder="Masukkan jenis berkas lainnya">
             </div>
 
             <div class="form-group">
@@ -89,4 +95,17 @@
             border-color: #3B6E85 !important;
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        document.getElementById('jenis_berkas').addEventListener('change', function () {
+            var jenisBerkasLainnyaGroup = document.getElementById('jenis_berkas_lainnya_group');
+            if (this.value == '3') { // 3 adalah value untuk "Lain-Lain"
+                jenisBerkasLainnyaGroup.classList.remove('d-none');
+            } else {
+                jenisBerkasLainnyaGroup.classList.add('d-none');
+            }
+        });
+    </script>
 @endpush

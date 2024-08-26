@@ -21,8 +21,8 @@
 </head>
 <body>
     <div class="image-container">
-        <img src="/img/fajar.jpeg" alt="MEME">
-        <p>SELAMAT BEKERJA</p>
+        <!-- <img src="/img/fajar.jpeg" alt="MEME"> -->
+        <p>UNDER MAINTENANCE</p>
     </div>
 </body>
 </html>
