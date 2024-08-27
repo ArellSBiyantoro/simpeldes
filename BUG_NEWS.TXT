@@ -1,0 +1,7 @@
+Bug/Error
+1. Status notifikasi tidak mau update (selalu merah)
+2. Status pengajuan selain "Pengajuan berhasil dibuat" tidak dapat link ke pengajuan-detail
+
+Kurang
+1. Halaman informasi belum memiliki backend
+2. Halaman IOT Belum update/terpasang

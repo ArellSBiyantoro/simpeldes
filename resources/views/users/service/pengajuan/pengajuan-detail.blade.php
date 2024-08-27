@@ -37,6 +37,13 @@
         </div>
 
         <div class="form-group">
+            <label for="keterangan" class="mb-3">Keterangan</label>
+            <div class="form-control form-control-lg rounded-pill text-md" id="keterangan" readonly>
+                {{ $pengajuan->keterangan ?? 'Tidak ada keterangan' }}
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="jenis_berkas" class="mb-3">Jenis Berkas Pendukung</label>
             <input type="text" class="form-control form-control-lg rounded-pill text-md" id="jenis_berkas"
                 name="jenis_berkas" value="{{ $pengajuan->jenis_berkas == 1 ? 'Kartu Keluarga' : 'KTP/SIM/Kartu Pelajar' }}"

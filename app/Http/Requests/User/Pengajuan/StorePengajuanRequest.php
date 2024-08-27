@@ -24,6 +24,7 @@ class StorePengajuanRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'jenis_pelayanan_id' => 'required|exists:jenis_pelayanan,id',
+            'keterangan' => 'nullable|string',
             'jenis_berkas' => 'required|string',
             'file_berkas'=> 'required|array',
             'file_berkas.*' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',

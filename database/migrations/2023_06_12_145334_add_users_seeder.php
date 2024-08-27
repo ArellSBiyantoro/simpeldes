@@ -36,6 +36,19 @@ return new class extends Migration
                 'user_type' => 2,
                 'created_at' => now(),
                 'updated_at' => now()
+            ],
+            [
+                'nik' => '0000000000000001',
+                'name' => 'Gono',
+                'tanggal_lahir' => '2000-01-01',
+                'jenis_kelamin' => 'L',
+                'alamat' => 'Jl. Warga 1',
+                'email' => 'gono@mail.com',
+                'phone_number' => '081234567892',
+                'password' => bcrypt('01012000'),
+                'user_type' => 2,
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         ];
 

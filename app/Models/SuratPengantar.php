@@ -11,6 +11,7 @@ class SuratPengantar extends Model
     protected $fillable = [
         'user_id',
         'jenis_pelayanan_id',
+        'keterangan',
         'jenis_berkas',
         'file_berkas',
         'orginal_name_berkas',

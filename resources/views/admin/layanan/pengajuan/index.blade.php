@@ -37,6 +37,7 @@
                                         <th>Nama</th>
                                         <th>NIK</th>
                                         <th>Jenis Pelayanan</th>
+                                        <th>Keterangan</th>
                                         <th>Status Pengajuan</th>
                                         <th>Aksi</th>
                                         <th>Aksi</th>
@@ -49,6 +50,7 @@
                                             <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->user->nik }}</td>
                                             <td style="max-width: 150px;">{{ $item->jenisPelayanan->nama_pelayanan }}</td>
+                                            <td>{{ $item->keterangan ?? 'Tidak ada keterangan' }}</td>
                                             <td>{!! $item->status !!}</td>
                                             <td>
                                                 @php

@@ -101,15 +101,27 @@ class ServiceController extends Controller
 
     public function pengajuanStore(StorePengajuanRequest $request)
     {
+        // Mengambil data yang sudah divalidasi
         $data = $request->validated();
+    
+        // Menghapus 'file_berkas' dari data yang akan disimpan di tabel surat_pengantar
         $data = Arr::except($data, ['file_berkas']);
-        $pengajuan = SuratPengantar::create($data);
 
+        if (empty($data['keterangan'])) {
+            $data['keterangan'] = 'kosong';
+        }    
+        
+        // Menyimpan data surat_pengantar
+        $pengajuan = SuratPengantar::create($data);
+    
+        // Mengecek apakah ada file yang diupload
         if ($request->hasFile('file_berkas')) {
             foreach ($request->file('file_berkas') as $file) {
+                // Menyimpan file
                 $fileName = $file->store('public/uploads/pengajuan');
                 $originalName = $file->getClientOriginalName();
-
+    
+                // Menyimpan data file ke tabel file
                 File::create([
                     'surat_pengantar_id' => $pengajuan->id,
                     'file_berkas' => $fileName,
@@ -117,19 +129,21 @@ class ServiceController extends Controller
                 ]);
             }
         }
-
+    
+        // Menyimpan notifikasi
         Notifikasi::create([
             'user_id' => $data['user_id'],
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
             'judul_notifikasi' => 'Pengajuan berhasil dibuat',
             'isi_notifikasi' => 'Pengajuan anda berhasil dibuat, silahkan menunggu proses selanjutnya',
-            'link_notifikasi' => $pengajuan->id,
+            'link_notifikasi' => route('pengajuan.detail', $pengajuan->id),
             'tipe_notifikasi' => Notifikasi::TYPE_PENGAJUAN
         ]);
-
+    
+        // Redirect ke halaman detail pengajuan
         return redirect()->route('pengajuan.detail', $pengajuan->id);
     }
-
+    
     //downloading file pengajuan as zip
     public function downloadFiles($surat_pengantar_id)
     {

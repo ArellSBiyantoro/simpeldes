@@ -26,7 +26,7 @@
                                 <p class="card-text">{{ $item->isi_notifikasi }}</p>
                             </div>
                             <div class="align-self-center ml-auto">
-                                <a href="{{ $item->notifikasi_link }}">Detail</a>
+                                <a href="{{ $item->link_notifikasi }}">Detail</a>
                             </div>
                         </div>
                     </div>

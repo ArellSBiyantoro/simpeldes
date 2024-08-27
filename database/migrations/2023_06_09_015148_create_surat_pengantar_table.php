@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('jenis_pelayanan_id')->constrained('jenis_pelayanan');
+            $table->longText('keterangan')->default("kosong"); //not implemented
             $table->string('jenis_berkas');
             $table->integer('status_pengajuan')->default(1);
             $table->timestamps();
