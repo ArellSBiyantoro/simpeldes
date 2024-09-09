@@ -69,7 +69,7 @@ class AdminServiceController extends Controller
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
             'judul_notifikasi' => 'Status pengajuan ' . $status,
             'isi_notifikasi' => 'Status pengajuan ' . $status . ', silahkan cek detail pengajuan anda',
-            'link_notifikasi' => $pengajuan->id,
+            'link_notifikasi' => route('pengajuan.detail', $pengajuan->id),
             'tipe_notifikasi' => Notifikasi::TYPE_PENGAJUAN
         ]);
 

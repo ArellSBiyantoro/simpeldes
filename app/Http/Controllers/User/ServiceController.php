@@ -66,7 +66,7 @@ class ServiceController extends Controller
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
             'judul_notifikasi' => 'Antrian berhasil dibuat',
             'isi_notifikasi' => 'Antrian anda berhasil dibuat, silahkan menunggu panggilan selanjutnya',
-            'link_notifikasi' => $antrian->id,
+            'link_notifikasi' => route('antrian.detail', $antrian->id),
             'tipe_notifikasi' => Notifikasi::TYPE_ANTRIAN
         ]);
 
@@ -118,7 +118,7 @@ class ServiceController extends Controller
         if ($request->hasFile('file_berkas')) {
             foreach ($request->file('file_berkas') as $file) {
                 // Menyimpan file
-                $fileName = $file->store('public/uploads/pengajuan');
+                $fileName = $file->store('public/pengajuan');
                 $originalName = $file->getClientOriginalName();
     
                 // Menyimpan data file ke tabel file
@@ -214,7 +214,7 @@ class ServiceController extends Controller
             'status_notifikasi' => Notifikasi::STATUS_UNREAD,
             'judul_notifikasi' => 'Pengaduan berhasil dibuat',
             'isi_notifikasi' => 'Pengaduan anda berhasil dibuat, silahkan menunggu proses selanjutnya',
-            'link_notifikasi' => $pengaduan->id,
+            'link_notifikasi' => route('pengaduan.detail', $pengaduan->id),
             'tipe_notifikasi' => Notifikasi::TYPE_PENGADUAN
         ]);
 
