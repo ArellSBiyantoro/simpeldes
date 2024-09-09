@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\WargaDesaController;
 use App\Http\Controllers\Admin\AdminDesaController;
 use App\Http\Controllers\Admin\AdminServiceController;
 use App\Http\Controllers\TaniCotroller;
+use App\Http\Controllers\FirebaseController;
+use App\Http\Controllers\InformasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,8 @@ Route::get('/register', function(){
 
 // Guest
 Route::get('/', [GuestController::class, 'wellcome'])->name('wellcome');
+
+Route::get('/firebase-data', [FirebaseController::class, 'getFirebaseData']);
 Route::get('/informasi', [GuestController::class, 'informasi'])->name('informasi');
 
 // Auth

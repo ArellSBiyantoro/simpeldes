@@ -57,7 +57,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold btn rounded-pill mr-2" href="{{ route('register.user') }}" 
+                        <a class="nav-link font-weight-bold btn rounded-pill" href="{{ route('register.user') }}" 
                         style="
                         background-color: #FFFFFF;
                         color: #51839C;
@@ -65,11 +65,18 @@
                         padding: 8px 42px;
                         font-size: 16px;
                         cursor: pointer;
-                        transition: background-color 0.3s, color 0.3s;"
+                        transition: background-color 0.3s, color 0.3s;
+                        margin: 0rem 0.2rem"
                         >Daftar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold btn rounded-pill" href="{{ route('login') }}" style="background-color: #51839C; color: #FFFFFF; padding: 8px 42px;">Login</a>
+                        <a class="nav-link font-weight-bold btn rounded-pill" href="{{ route('login') }}" 
+                        style="
+                        background-color: #51839C; 
+                        color: #FFFFFF; 
+                        padding: 8px 42px; 
+                        margin: 0rem 0.2rem"
+                        >Masuk</a>
                     </li>
                 @endif
             </ul>

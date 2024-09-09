@@ -1,7 +1,9 @@
 Bug/Error
 1. Status notifikasi tidak mau update (selalu merah)
-2. Status pengajuan selain "Pengajuan berhasil dibuat" tidak dapat link ke pengajuan-detail
+2. Status pengajuan selain "Pengajuan berhasil dibuat" tidak dapat link ke pengajuan-detail (done)
+3. open file new window error /storage/
 
 Kurang
-1. Halaman informasi belum memiliki backend
+1. Halaman informasi belum memiliki backend (done)
 2. Halaman IOT Belum update/terpasang
+3. Halaman input data informasi
