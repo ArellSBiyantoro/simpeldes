@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
-@section('title', 'Manajemen Irigrasi IOT')
+@section('title', '| Manajemen Irigrasi IOT')
 
-@section('content')
+    
     <style>
         .full-circle {
             width: 150px;
@@ -56,15 +56,17 @@
         }
 
         .status-badge {
-            margin-top: 10px;
+            margin-top: 6px;
         }
     </style>
 
+@section('content')
     <div class="container-fluid">
         <!-- Navbar -->
         <nav class="navbar" style="background-color: #343a40;">
             <div class="container">
-                <a class="navbar-brand" href="#" style="color: #ffffff;">Manajemen Irigrasi IOT</a>
+                <button onclick="history.back()" class="btn btn-light">Kembali</button>
+                <a class="navbar-brand" href="#" style="color: #ffffff; margin-top: 0.5 rem;">Manajemen Irigrasi IOT</a>
             </div>
         </nav>
 
@@ -110,9 +112,9 @@
                 <!-- Pintu 1 -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body text-center">
+                        <div class="card-body text-left">
                             <h4 class="card-title">Pintu 1</h4>
-                            <span class="badge bg-success status-badge" id="pintu1">Buka</span>
+                            <span class="badge bg-blue status-badge" id="pintu1" style="margin-left: 1rem;"></span>
                         </div>
                     </div>
                 </div>
@@ -120,9 +122,9 @@
                 <!-- Pintu 2 -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body text-center">
+                        <div class="card-body text-left">
                             <h4 class="card-title">Pintu 2</h4>
-                            <span class="badge bg-danger status-badge" id="pintu2">Tutup</span>
+                            <span class="badge bg-blue status-badge" id="pintu2" style="margin-left: 1rem;"></span>
                         </div>
                     </div>
                 </div>

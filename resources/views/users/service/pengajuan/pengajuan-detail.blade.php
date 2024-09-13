@@ -3,6 +3,25 @@
 @section('title', 'Detail Surat Pengantar')
 
 @section('judul', 'Detail Pengajuan Surat Pengantar')
+<style>
+    .file-item {
+        text-align: center;
+        width: 100%; /* Memastikan lebar elemen menyesuaikan dengan kontainer */
+    }
+    .file-icon {
+        display: block;
+        margin: 0 auto; /* Memusatkan ikon */
+        height: 150px; /* Sesuaikan dengan tinggi yang diinginkan */
+        object-fit: cover;
+    }
+    .file-name {
+        margin-top: 10px;
+        word-wrap: break-word; /* Membungkus nama file jika terlalu panjang */
+        width: 150px; /* Sesuaikan dengan lebar ikon */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Menampilkan ellipsis jika teks terlalu panjang */
+    }
+</style>
 
 @section('content')
 
@@ -59,28 +78,49 @@
                         @if ($pengajuan->files->count() >= 3)
                             <div class="row">
                                 @foreach ($pengajuan->files as $index => $file)
-                                    <div class="col-md-4 mb-3">
-                                        <img id="imageresource" src="{{ Storage::url($file->file_berkas) }}"
-                                            alt="{{ $file->original_name }}" class="img-fluid"
-                                            style="height: 150px; border-radius: 15px; object-fit: cover;">
+                                    <div class="col-md-4 mb-3 file-item">
+                                        @if (pathinfo($file->file_berkas, PATHINFO_EXTENSION) == 'pdf')
+                                            <!-- Tampilkan ikon PDF jika file adalah PDF -->
+                                            <img class="file-icon" 
+                                                src="{{ asset('img/pdf.png') }}" 
+                                                alt="PDF Icon">
+                                        @else
+                                            <!-- Tampilkan gambar jika bukan PDF -->
+                                            <img class="file-icon" 
+                                                src="{{ Storage::url($file->file_berkas) }}"
+                                                alt="{{ $file->original_name }}">
+                                        @endif
+                                        <p class="file-name">{{ $file->original_name }}</p>
                                     </div>
                                     @if (($index + 1) % 3 == 0 && $index + 1 != $pengajuan->files->count())
+                                </div>
+                                <div class="row">
+                                    @endif
+                                @endforeach
                             </div>
-                            <div class="row">
+                        @else
+                            @foreach ($pengajuan->files as $file)
+                                <div class="col-md-4 mb-3 file-item">
+                                    @if (pathinfo($file->file_berkas, PATHINFO_EXTENSION) == 'pdf')
+                                        <!-- Tampilkan ikon PDF jika file adalah PDF -->
+                                        <img class="file-icon" 
+                                            src="{{ asset('img/pdf.png') }}" 
+                                            alt="PDF Icon">
+                                    @else
+                                        <!-- Tampilkan gambar jika bukan PDF -->
+                                        <img class="file-icon" 
+                                            src="{{ Storage::url($file->file_berkas) }}"
+                                            alt="{{ $file->original_name }}">
+                                    @endif
+                                    <p class="file-name">{{ $file->original_name }}</p>
+                                </div>
+                            @endforeach
                         @endif
-                        @endforeach
                     </div>
-                @else
-                    @foreach ($pengajuan->files as $index => $file)
-                        <img id="imageresource" src="{{ Storage::url($file->file_berkas) }}"
-                            alt="{{ $file->original_name }}" class="img-fluid"
-                            style="height: 150px; border-radius: 15px; object-fit: cover;">
-                    @endforeach
-                    @endif
-                </div>
-
                 </a>
+            </div>
         </div>
+
         <div class="mt-3">
             <a href="{{ route('pengajuan.download', $pengajuan->id) }}"
                 class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">
@@ -117,10 +157,10 @@
                     <img src="" id="imagepreview" class="mx-auto" style="max-width: 100%;">
                 </div>
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-primary btn-green-pastel"
-                        href="{{ Storage::url($pengajuan->file_berkas) }}" target="_blank">Open</a>
+                    <a type="button" class="btn btn-primary btn-green-pastel" id="modalOpenBtn" href="" target="_blank">Open</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -143,9 +183,14 @@
 
 @push('scripts')
     <script>
-        $("#pop").on("click", function() {
-            $('#imagepreview').attr('src', $('#imageresource').attr('src'));
-            $('#imagemodal').modal('show');
+        $(".preview-image").on("click", function() {
+            var src = $(this).data('src');
+            var fileUrl = $(this).data('url');
+            $('#imagepreview').attr('src', src); // Ganti src gambar dalam modal
+            $('#modalOpenBtn').attr('href', fileUrl); // Ganti href link Open sesuai file
+            $('#imagemodal').modal('show'); // Tampilkan modal
         });
     </script>
 @endpush
+
+
