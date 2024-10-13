@@ -1,7 +1,7 @@
 // Import Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -20,17 +20,36 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const analytics = getAnalytics(app);
 
-// Firebase Realtime Database reference
-const dataRef = ref(database, '/');
+// Firebase Realtime Database references
+const kelembapanRef = ref(database, '/kelembapan');
+const ketinggianRef = ref(database, '/ketinggian');
+const pintu1Ref = ref(database, '/pintu1');
+const pintu2Ref = ref(database, '/pintu2');
+const kontrolManualRef = ref(database, '/kontrolManual');
+
+// Referensi ke elemen HTML
+const kelembapanCircle = document.getElementById('kelembapan-circle');
+const kelembapanText = document.getElementById('kelembapan-circle-text');
+const kelembapanSpan = document.getElementById('kelembapan');
+const ketinggianCircle = document.getElementById('ketinggian-circle');
+const ketinggianText = document.getElementById('ketinggian-circle-text');
+const ketinggianSpan = document.getElementById('ketinggian');
+const pintu1Button = document.getElementById('pintu1-button');
+const pintu2Button = document.getElementById('pintu2-button');
+const kontrolManualButton = document.getElementById('kontrol-manual-button');
+
+// Global state variables
+let kontrolManualAktif = false;
+let timeoutId = null; // Timeout control
 
 // Update UI with data from Firebase
 function updateUI(data) {
-    document.getElementById('kelembapan').textContent = data.kelembapan !== undefined ? data.kelembapan : '-';
-    document.getElementById('ketinggian').textContent = data.ketinggian !== undefined ? data.ketinggian : '-';
+    kelembapanSpan.textContent = data.kelembapan !== undefined ? data.kelembapan : '-';
+    ketinggianSpan.textContent = data.ketinggian !== undefined ? data.ketinggian : '-';
     updateCircle('kelembapan-circle', data.kelembapan, 'kelembapan-circle-text');
     updateCircle('ketinggian-circle', data.ketinggian, 'ketinggian-circle-text');
-    document.getElementById('pintu1').textContent = data.pintu1 !== undefined ? data.pintu1 : '-';
-    document.getElementById('pintu2').textContent = data.pintu2 !== undefined ? data.pintu2 : '-';
+    document.getElementById('pintu1-status').textContent = data.pintu1 !== undefined ? data.pintu1 : '-';
+    document.getElementById('pintu2-status').textContent = data.pintu2 !== undefined ? data.pintu2 : '-';
 }
 
 // Update progress circles
@@ -47,8 +66,55 @@ function updateCircle(circleId, value, textId) {
     }
 }
 
-// Listen for changes in Firebase data
-onValue(dataRef, (snapshot) => {
-    const data = snapshot.val();
-    updateUI(data);
-});
+// Fetch data from Firebase and update UI
+function updateData() {
+    onValue(ref(database, '/'), (snapshot) => {
+        const data = snapshot.val();
+        updateUI(data);
+    });
+}
+
+// Toggle the state of a gate (pintu)
+function togglePintu(pintuRef) {
+    const pintuStatusRef = ref(database, pintuRef);
+    get(pintuStatusRef).then((snapshot) => {
+        const currentStatus = snapshot.val();
+        const newStatus = currentStatus === 'aktif' ? 'nonaktif' : 'aktif';
+        set(pintuStatusRef, newStatus).catch((error) => {
+            console.error(`Gagal mengubah status ${pintuRef}:`, error);
+        });
+    });
+}
+
+// Toggle manual control
+function toggleKontrolManual() {
+    if (kontrolManualAktif) {
+        set(kontrolManualRef, 'nonaktif').then(() => {
+            clearTimeout(timeoutId);
+            togglePintuButtons(false);
+        }).catch(console.error);
+    } else {
+        set(kontrolManualRef, 'aktif').then(() => {
+            togglePintuButtons(true);
+            timeoutId = setTimeout(() => {
+                set(kontrolManualRef, 'nonaktif').then(() => {
+                    togglePintuButtons(false);
+                }).catch(console.error);
+            }, 60 * 1000); // 1-minute timeout
+        }).catch(console.error);
+    }
+}
+
+// Display or hide gate control buttons
+function togglePintuButtons(aktif) {
+    pintu1Button.style.display = aktif ? 'inline-block' : 'none';
+    pintu2Button.style.display = aktif ? 'inline-block' : 'none';
+}
+
+// Event listeners
+pintu1Button.addEventListener('click', () => togglePintu('/pintu1'));
+pintu2Button.addEventListener('click', () => togglePintu('/pintu2'));
+kontrolManualButton.addEventListener('click', toggleKontrolManual);
+
+// Fetch data on page load
+updateData();

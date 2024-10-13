@@ -1,8 +1,8 @@
-@extends('layouts.guest')
+@extends('layouts.app')
 
-@section('title', '| Manajemen Irigrasi IOT')
+@section('title', 'Sensor Monitoring dan Kontrol Pintu')
 
-    
+@section('content')
     <style>
         .full-circle {
             width: 150px;
@@ -56,23 +56,31 @@
         }
 
         .status-badge {
-            margin-top: 6px;
+            margin-top: 10px;
+        }
+
+        .badge.active {
+            background-color: #dc3545; /* Green for active */
+            color: #ffffff;
+        }
+
+        .badge.inactive {
+            background-color: #28a745; /* Red for inactive */
+            color: #ffffff;
         }
     </style>
 
-@section('content')
     <div class="container-fluid">
         <!-- Navbar -->
         <nav class="navbar" style="background-color: #343a40;">
             <div class="container">
-                <button onclick="history.back()" class="btn btn-light">Kembali</button>
-                <a class="navbar-brand" href="#" style="color: #ffffff; margin-top: 0.5 rem;">Manajemen Irigrasi IOT</a>
+                <a class="navbar-brand" href="#" style="color: #ffffff;">Sensor Monitoring dan Kontrol Pintu</a>
             </div>
         </nav>
 
         <!-- Main Section -->
         <div class="container mt-4">
-            <h1 class="text-center mb-4" style="color: #343a40;">Manajemen Irigrasi IOT</h1>
+            <h1 class="text-center mb-4" style="color: #343a40;">Manajemen Irigasi IOT</h1>
 
             <!-- Sensor Data Cards -->
             <div class="row">
@@ -107,14 +115,14 @@
                 </div>
             </div>
 
-            <!-- Gate Status -->
+            <!-- Gate Control and Status -->
             <div class="row">
                 <!-- Pintu 1 -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body text-left">
+                        <div class="card-body text-center">
                             <h4 class="card-title">Pintu 1</h4>
-                            <span class="badge bg-blue status-badge" id="pintu1" style="margin-left: 1rem;"></span>
+                            <span class="badge status-badge active" id="pintu1-status">-</span>
                         </div>
                     </div>
                 </div>
@@ -122,9 +130,45 @@
                 <!-- Pintu 2 -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
-                        <div class="card-body text-left">
+                        <div class="card-body text-center">
                             <h4 class="card-title">Pintu 2</h4>
-                            <span class="badge bg-blue status-badge" id="pintu2" style="margin-left: 1rem;"></span>
+                            <span class="badge status-badge inactive" id="pintu2-status">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Pintu 1 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0">
+                    <h4 class="card-title">Pintu 1</h4>
+                        <div class="card-body text-center">
+                        <button class="btn btn-primary mt-3 badge status-badge active" id="pintu1-button">Aktifkan Pintu 1</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pintu 2 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0">
+                    <h4 class="card-title">Pintu 2</h4>
+                        <div class="card-body text-center">
+                        <button class="btn btn-primary mt-3 badge status-badge active" id="pintu2-button">Aktifkan Pintu 2</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Manual Control Section -->
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Kontrol Manual</h4>
+                            <button class="btn btn-danger" id="kontrol-manual-button">Aktifkan Kontrol Manual</button>
+                            <div id="timer-container" class="mt-3" style="display: none;">
+                                <span id="timer-label">Kontrol manual aktif, sisa waktu: </span>
+                                <span id="timer-countdown">03:00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
