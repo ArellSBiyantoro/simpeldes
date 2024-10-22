@@ -11,3 +11,4 @@ Kurang
 2. Halaman IOT Belum update/terpasang (done)
 
 3. !!!!! Halaman input data informasi (?)
+4. Alternatif Seed data informasi

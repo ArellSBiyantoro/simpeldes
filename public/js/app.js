@@ -48,8 +48,32 @@ function updateUI(data) {
     ketinggianSpan.textContent = data.ketinggian !== undefined ? data.ketinggian : '-';
     updateCircle('kelembapan-circle', data.kelembapan, 'kelembapan-circle-text');
     updateCircle('ketinggian-circle', data.ketinggian, 'ketinggian-circle-text');
-    document.getElementById('pintu1-status').textContent = data.pintu1 !== undefined ? data.pintu1 : '-';
-    document.getElementById('pintu2-status').textContent = data.pintu2 !== undefined ? data.pintu2 : '-';
+    
+    // Update background style for pintu1 status
+    const pintu1Status = document.getElementById('pintu1-status');
+    if (data.pintu1 !== undefined) {
+        pintu1Status.textContent = data.pintu1;
+        pintu1Status.style.backgroundColor = data.pintu1 === 'aktif' ? '#28a745' : '#dc3545'; // Green for active, red for inactive
+        pintu1Status.style.color = 'white'; // Ensure text is readable
+        pintu1Status.style.borderRadius = '8px'; // Example: rounded corners
+        pintu1Status.style.padding = '10px'; // Add padding for better appearance
+    } else {
+        pintu1Status.textContent = '-';
+        pintu1Status.style.backgroundColor = '#6c757d'; // Gray for undefined
+    }
+
+    // Update background style for pintu2 status
+    const pintu2Status = document.getElementById('pintu2-status');
+    if (data.pintu2 !== undefined) {
+        pintu2Status.textContent = data.pintu2;
+        pintu2Status.style.backgroundColor = data.pintu2 === 'aktif' ? '#28a745' : '#dc3545'; // Green for active, red for inactive
+        pintu2Status.style.color = 'white'; // Ensure text is readable
+        pintu2Status.style.borderRadius = '8px'; // Example: rounded corners
+        pintu2Status.style.padding = '10px'; // Add padding for better appearance
+    } else {
+        pintu2Status.textContent = '-';
+        pintu2Status.style.backgroundColor = '#6c757d'; // Gray for undefined
+    }
 }
 
 // Update progress circles

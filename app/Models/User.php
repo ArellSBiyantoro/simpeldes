@@ -16,7 +16,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nik', 'name', 'tanggal_lahir', 'jenis_kelamin',
-        'alamat', 'email', 'phone_number', 'password', 'user_type'
+        'alamat', 'email', 'phone_number', 'password', 'user_type','kriteria'
     ];
 
     // Const User Type

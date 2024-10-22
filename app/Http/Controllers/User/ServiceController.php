@@ -92,8 +92,12 @@ class ServiceController extends Controller
         }
 
         // Update status notifikasi
-        if (request('is_read') == 2) {
-            Notifikasi::where('link_notifikasi', $id)->update(['status_notifikasi' => Notifikasi::STATUS_READ]);
+        $notifikasi = Notifikasi::where('user_id', auth()->user()->id)
+            ->where('link_notifikasi', route('pengajuan.detail', $id))
+            ->first();
+        
+        if ($notifikasi && $notifikasi->status_notifikasi == Notifikasi::STATUS_UNREAD) {
+            $notifikasi->update(['status_notifikasi' => Notifikasi::STATUS_READ]);
         }
 
         return view('users.service.pengajuan.pengajuan-detail', compact('pengajuan'));

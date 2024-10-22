@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\User;
-
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Admin\UpdateWargaDesaRequest;
 
@@ -28,6 +25,7 @@ class WargaDesaController extends Controller
 
         $data['phone_number'] = str_replace('-', '', $data['phone_number']);
         $data['user_type'] = User::USER_TYPE_USER;
+        $data['kriteria'] = $request->input('kriteria'); // Get the kriteria from the request
         $password = Carbon::parse($data['tanggal_lahir'])->format('dmY');
         $data['password'] = Hash::make($password);
 
@@ -57,6 +55,7 @@ class WargaDesaController extends Controller
         $warga_desa = User::findOrFail($id);
 
         $data['phone_number'] = str_replace('-', '', $data['phone_number']);
+        $data['kriteria'] = $request->input('kriteria'); // Get the kriteria from the request
         $password = Carbon::parse($data['tanggal_lahir'])->format('dmY');
         $data['password'] = Hash::make($password);
 

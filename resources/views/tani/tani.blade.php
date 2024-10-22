@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('title', 'Sensor Monitoring dan Kontrol Pintu')
 
@@ -122,7 +122,7 @@
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
                             <h4 class="card-title">Pintu 1</h4>
-                            <span class="badge status-badge active" id="pintu1-status">-</span>
+                            <span id="pintu1-status">-</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
                             <h4 class="card-title">Pintu 2</h4>
-                            <span class="badge status-badge inactive" id="pintu2-status">-</span>
+                            <span id="pintu2-status">-</span>
                         </div>
                     </div>
                 </div>

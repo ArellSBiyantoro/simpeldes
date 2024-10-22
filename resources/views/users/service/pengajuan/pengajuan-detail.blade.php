@@ -78,7 +78,7 @@
                         @if ($pengajuan->files->count() >= 3)
                             <div class="row">
                                 @foreach ($pengajuan->files as $index => $file)
-                                    <div class="col-md-4 mb-3 file-item">
+                                    <div class="col-md-4 mb-3 file-item" data-file-url="{{ Storage::url($file->file_berkas) }}" data-file-name="{{ $file->original_name }}">
                                         @if (pathinfo($file->file_berkas, PATHINFO_EXTENSION) == 'pdf')
                                             <!-- Tampilkan ikon PDF jika file adalah PDF -->
                                             <img class="file-icon" 
@@ -93,14 +93,14 @@
                                         <p class="file-name">{{ $file->original_name }}</p>
                                     </div>
                                     @if (($index + 1) % 3 == 0 && $index + 1 != $pengajuan->files->count())
-                                </div>
-                                <div class="row">
+                            </div>
+                            <div class="row">
                                     @endif
                                 @endforeach
                             </div>
                         @else
                             @foreach ($pengajuan->files as $file)
-                                <div class="col-md-4 mb-3 file-item">
+                                <div class="col-md-4 mb-3 file-item" data-file-url="{{ Storage::url($file->file_berkas) }}" data-file-name="{{ $file->original_name }}">
                                     @if (pathinfo($file->file_berkas, PATHINFO_EXTENSION) == 'pdf')
                                         <!-- Tampilkan ikon PDF jika file adalah PDF -->
                                         <img class="file-icon" 
@@ -121,28 +121,26 @@
             </div>
         </div>
 
-        <div class="mt-3">
+        <!-- <div class="mt-3">
             <a href="{{ route('pengajuan.download', $pengajuan->id) }}"
                 class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">
                 Download File
             </a>
+        </div> -->
+    
+        <div class="form-group">
+            <label for="status" class="mb-3">Status Pengajuan</label>
+            <input type="text" class="form-control form-control-lg rounded-pill text-md" id="status" name="status"
+                value="@if ($pengajuan->status_pengajuan == 1) Menunggu Verifikasi @elseif($pengajuan->status_pengajuan == 2) Verifikasi Berhasil @elseif($pengajuan->status_pengajuan == 3) Verifikasi Gagal @else Selesai @endif"
+                readonly>
+        </div>
+    
+        <div class="d-flex w-100 justify-content-end mt-5">
+            <a href="{{ route('dashboard.user') }}" class="btn btn-outline-secondary px-5 py-2 rounded-pill mr-3">Dashboard</a>
+            <a href="{{ route('notifikasi') }}" class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">Notifikasi</a>
         </div>
     </div>
 
-
-    <div class="form-group">
-        <label for="status" class="mb-3">Status Pengajuan</label>
-        <input type="text" class="form-control form-control-lg rounded-pill text-md" id="status" name="status"
-            value="@if ($pengajuan->status_pengajuan == 1) Menunggu Verifikasi @elseif($pengajuan->status_pengajuan == 2) Verifikasi Berhasil @elseif($pengajuan->status_pengajuan == 3) Verifikasi Gagal @else Selesai @endif"
-            readonly>
-    </div>
-
-    <div class="d-flex w-100 justify-content-end mt-5">
-        <a href="{{ route('dashboard.user') }}" class="btn btn-outline-secondary px-5 py-2 rounded-pill mr-3">Dashboard</a>
-        <a href="{{ route('notifikasi') }}" class="btn btn-primary btn-green-pastel px-5 py-2 rounded-pill">Notifikasi</a>
-    </div>
-
-    </div>
 
     <div class="modal" tabindex="-1" id="imagemodal">
         <div class="modal-dialog modal-lg">
@@ -181,16 +179,28 @@
     </style>
 @endpush
 
-@push('scripts')
+@push('scripts')    
     <script>
-        $(".preview-image").on("click", function() {
-            var src = $(this).data('src');
-            var fileUrl = $(this).data('url');
-            $('#imagepreview').attr('src', src); // Ganti src gambar dalam modal
-            $('#modalOpenBtn').attr('href', fileUrl); // Ganti href link Open sesuai file
-            $('#imagemodal').modal('show'); // Tampilkan modal
+        $(document).ready(function() {
+            // Saat gambar atau file-item di klik
+            $('.file-item').click(function(e) {
+                e.preventDefault();
+
+                // Ambil URL file dan nama file
+                var fileUrl = $(this).data('file-url');
+                var fileName = $(this).data('file-name');
+
+                // Set gambar atau file ke dalam modal
+                $('#imagepreview').attr('src', fileUrl);
+                $('#modalOpenBtn').attr('href', fileUrl);
+                $('#imagemodal .modal-title').text(fileName);
+
+                // Tampilkan modal
+                $('#imagemodal').modal('show');
+            });
         });
     </script>
+
 @endpush
 
 
