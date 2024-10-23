@@ -5,8 +5,8 @@
 @section('content')
     <style>
         .full-circle {
-            width: 150px;
-            height: 150px;
+            width: 150px; /* Fixed width */
+            height: 150px; /* Fixed height */
             border-radius: 50%;
             background: conic-gradient(#007bff calc(var(--progress) * 1%), #d3d3d3 0%);
             display: flex;
@@ -18,10 +18,12 @@
         }
 
         .progress-item {
-            margin: 20px auto;
-            text-align: center;
+            display: flex;               /* Enable flexbox */
+            justify-content: center;     /* Center items horizontally */
+            align-items: center;         /* Center items vertically */
+            margin: 20px auto;          /* Center the container itself */
+            width: 100%;                 /* Use full width of the card */
         }
-
         .card {
             border-radius: 15px;
             padding: 20px;
@@ -41,7 +43,7 @@
         }
 
         .card-body {
-            padding: 30px;
+            padding: 16px;
         }
 
         p {
@@ -60,23 +62,36 @@
         }
 
         .badge.active {
-            background-color: #dc3545; /* Green for active */
+            background-color: #28a745; /* Green for active */
             color: #ffffff;
         }
 
         .badge.inactive {
-            background-color: #28a745; /* Red for inactive */
+            background-color: #dc3545; /* Red for inactive */
             color: #ffffff;
+        }
+
+        .door-status {
+            display: flex;
+            flex-direction: column; /* Align items vertically */
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            gap: 10px;
+        }
+
+        .door-icon {
+            font-size: 30px;
         }
     </style>
 
+    <!-- Navbar -->
+    <nav class="navbar" style="background-color: #343a40;">
+        <div class="container">
+            <a href="{{ url()->previous() }}" class="btn btn-light">Kembali</a>
+            <a class="navbar-brand" href="#" style="color: #ffffff;">Sensor Monitoring dan Kontrol Pintu</a>
+        </div>
+    </nav>
     <div class="container-fluid">
-        <!-- Navbar -->
-        <nav class="navbar" style="background-color: #343a40;">
-            <div class="container">
-                <a class="navbar-brand" href="#" style="color: #ffffff;">Sensor Monitoring dan Kontrol Pintu</a>
-            </div>
-        </nav>
 
         <!-- Main Section -->
         <div class="container mt-4">
@@ -87,29 +102,28 @@
                 <!-- Kelembapan Tanah -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
+                        <h4 class="card-title">Kelembapan Tanah</h4>
                         <div class="card-body text-center">
-                            <h4 class="card-title">Kelembapan Tanah</h4>
                             <div class="progress-item">
                                 <div class="full-circle" id="kelembapan-circle" style="--progress: 0;">
                                     <span id="kelembapan-circle-text">0%</span>
                                 </div>
                             </div>
-                            <p class="mt-3">Kelembapan tanah: <span id="kelembapan">-</span></p>
+                            <p class="mt-3">Kelembapan Tanah: <span id="kelembapan">-</span></p>
                         </div>
                     </div>
                 </div>
-
                 <!-- Ketinggian Air -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
+                        <h4 class="card-title">Ketinggian Air</h4>
                         <div class="card-body text-center">
-                            <h4 class="card-title">Ketinggian Air</h4>
                             <div class="progress-item">
                                 <div class="full-circle" id="ketinggian-circle" style="--progress: 0;">
                                     <span id="ketinggian-circle-text">0%</span>
                                 </div>
                             </div>
-                            <p class="mt-3">Ketinggian air: <span id="ketinggian">-</span></p>
+                            <p class="mt-3">Ketinggian Air: <span id="ketinggian">-</span></p>
                         </div>
                     </div>
                 </div>
@@ -122,7 +136,10 @@
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
                             <h4 class="card-title">Pintu 1</h4>
-                            <span id="pintu1-status">-</span>
+                            <div class="door-status">
+                                <span id="pintu1-status" class="badge active">Terbuka</span>
+                                <button class="btn btn-primary mt-2" id="pintu1-button">Aktifkan Pintu 1</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,32 +149,15 @@
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
                             <h4 class="card-title">Pintu 2</h4>
-                            <span id="pintu2-status">-</span>
+                            <div class="door-status">
+                                <span id="pintu2-status" class="badge inactive">Tutup</span>
+                                <button class="btn btn-primary mt-2" id="pintu2-button">Aktifkan Pintu 2</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!-- Pintu 1 -->
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm border-0">
-                    <h4 class="card-title">Pintu 1</h4>
-                        <div class="card-body text-center">
-                        <button class="btn btn-primary mt-3 badge status-badge active" id="pintu1-button">Aktifkan Pintu 1</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Pintu 2 -->
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm border-0">
-                    <h4 class="card-title">Pintu 2</h4>
-                        <div class="card-body text-center">
-                        <button class="btn btn-primary mt-3 badge status-badge active" id="pintu2-button">Aktifkan Pintu 2</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Manual Control Section -->
             <div class="row">
                 <div class="col-md-12 mb-4">

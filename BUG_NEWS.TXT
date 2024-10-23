@@ -1,14 +1,9 @@
 Bug/Error
 1. !!!!! Status notifikasi tidak mau update (selalu merah) (need to solve)
 
-2. Status pengajuan selain "Pengajuan berhasil dibuat" tidak dapat link ke pengajuan-detail (done)
-3. open file new window error /storage/(done)
-4. tidak dapata upload pdf (done)
-5. Tampilan file pdf (done)
+2. Update status notifikasi dari tombol detail di notifikasi
+3. Kriteria warga untuk petani diupdate lewat Admin
 
 Kurang
-1. Halaman informasi belum memiliki backend (done)
-2. Halaman IOT Belum update/terpasang (done)
-
 3. !!!!! Halaman input data informasi (?)
-4. Alternatif Seed data informasi
+4. Alternatif Seed data informasi (?)

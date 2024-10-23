@@ -6,20 +6,28 @@
 <style>
     .file-item {
         text-align: center;
-        width: 100%; /* Memastikan lebar elemen menyesuaikan dengan kontainer */
+        display: inline-block; /* Make items inline to align them horizontally */
+        width: 150px; /* Set a specific width for each file item */
+        vertical-align: top; /* Ensure text stays aligned with image */
+        margin: 20px;
     }
+
     .file-icon {
         display: block;
-        margin: 0 auto; /* Memusatkan ikon */
-        height: 150px; /* Sesuaikan dengan tinggi yang diinginkan */
+        margin: 0 auto;
+        height: 100px; /* Adjust height for smaller icons */
+        width: 100px;  /* Make width proportional to height */
         object-fit: cover;
     }
+
     .file-name {
-        margin-top: 10px;
-        word-wrap: break-word; /* Membungkus nama file jika terlalu panjang */
-        width: 150px; /* Sesuaikan dengan lebar ikon */
+        margin-top: 5px;
+        word-wrap: break-word;
+        width: 100px; /* Match width to the icon */
+        text-align: center;
         overflow: hidden;
-        text-overflow: ellipsis; /* Menampilkan ellipsis jika teks terlalu panjang */
+        text-overflow: ellipsis;
+        white-space: nowrap; /* Prevent text wrapping */
     }
 </style>
 
