@@ -108,7 +108,7 @@
                     @if(auth()->user()->is_kelompok_tani == 'Ya')
                         <a class="layanan" href="{{ route('tani.index') }}">
                             <i class="fa fa-users fa-6x"></i>
-                            <p class="text-lg mt-4">Kelompok Tani</p>
+                            <p class="text-lg mt-4">Manajemen Sistem Irigrasi</p>
                         </a>
                     @endif
                     <a class="layanan" href="{{ route('pengaduan') }}">
