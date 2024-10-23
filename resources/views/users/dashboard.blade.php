@@ -14,8 +14,7 @@
     .grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
+    display: ;     justify-content: center;
     }
 
     .border-bottom-green {
@@ -57,6 +56,7 @@
         background-color: #FFFFFF;
         border-radius: 20px;
         padding: 25px;
+        gap:10px;
         text-decoration: none;
         color: #000000;
         transition: transform 0.3s ease;
@@ -75,7 +75,7 @@
             padding: 15px;
         }
 
-        .w-100.d-flex.justify-content-around.align-items-center.mt-4 {
+        .w-100.d-flex.justify-content-around.align-items-center.mt-4  {
             flex-direction: column;
             align-items: center;
         }
@@ -105,10 +105,12 @@
                         <i class="fa fa-file-alt fa-6x"></i>
                         <p class="text-lg mt-4">Pengajuan Surat Pengantar</p>
                     </a>
-                    <a class="layanan" href="{{route('tani.index')}}">
-                        <i class="fa fa-users fa-6x"></i>
-                        <p class="text-lg mt-4">Kelompok Tani</p>
-                    </a>
+                    @if(auth()->user()->is_kelompok_tani == 'Ya')
+                        <a class="layanan" href="{{ route('tani.index') }}">
+                            <i class="fa fa-users fa-6x"></i>
+                            <p class="text-lg mt-4">Kelompok Tani</p>
+                        </a>
+                    @endif
                     <a class="layanan" href="{{ route('pengaduan') }}">
                         <i class="fa fa-chalkboard-teacher fa-6x"></i>
                         <p class="text-lg mt-4">Aduan Masyarakat Desa</p>

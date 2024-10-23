@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone_number', 15)->unique();
             $table->string('password');
             $table->enum('user_type', [1, 2]); // 1 = Admin, 2 = User
+            $table->enum('is_kelompok_tani', ['Ya', 'Tidak'])->default('Tidak'); // Menambahkan kolom untuk kelompok tani
             $table->timestamps();
         });
     }

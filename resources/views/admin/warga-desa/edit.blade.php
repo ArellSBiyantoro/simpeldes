@@ -105,6 +105,21 @@
                                 @endif
                             </div>
 
+                            <!-- Input Kelompok Tani -->
+                            <div class="form-group">
+                                <label for="is_kelompok_tani">Apakah termasuk Kelompok Tani?</label>
+                                <select class="form-control rounded-lg @if ($errors->has('is_kelompok_tani')) is-invalid @endif" id="is_kelompok_tani" name="is_kelompok_tani">
+                                    <option value="" disabled selected>-- Pilih Jawaban --</option>
+                                    <option value="Ya" {{ $warga_desa->is_kelompok_tani == 'Ya' ? 'selected' : '' }}>Ya</option>
+                                    <option value="Tidak" {{ $warga_desa->is_kelompok_tani == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                                </select>
+                                @if ($errors->has('is_kelompok_tani'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('is_kelompok_tani') }}
+                                    </div>
+                                @endif
+                            </div>
+
                             <div class="d-flex w-100 justify-content-end mt-4">
                                 <button type="submit" class="btn btn-primary btn-green-pastel px-5 py-2">Edit</button>
                             </div>
