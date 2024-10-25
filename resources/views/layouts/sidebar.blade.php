@@ -50,14 +50,14 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('admin.antrian.index') }}" class="nav-link @if (request()->is('admin/antrian*')) active @endif">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Antrian Pelayanan
                         </p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="{{ route('admin.pengaduan.index') }}" class="nav-link @if (request()->is('admin/pengaduan*')) active @endif">
                         <i class="nav-icon fas fa-flag"></i>

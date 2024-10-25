@@ -23,7 +23,7 @@
                 <a href="{{ route('admin.pengajuan.index') }}" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-lg-4 col-6">
+        <!-- <div class="col-lg-4 col-6">
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3>{{ $jumlah_antrian }}</h3>
@@ -34,7 +34,7 @@
                 </div>
                 <a href="{{ route('admin.antrian.index') }}" class="small-box-footer">Detail <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-        </div>
+        </div> -->
         <div class="col-lg-4 col-12">
             <!-- small box -->
             <div class="small-box bg-warning">

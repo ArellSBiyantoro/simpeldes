@@ -158,7 +158,7 @@
                 </div>
 
                 <!-- Pintu 2 -->
-                <div class="col-md-6 mb-4">
+                <!-- <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
                             <h4 class="card-title">Pintu 2</h4>
@@ -168,11 +168,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Manual Control Section -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12 mb-4">
                     <div class="card shadow-sm border-0">
                         <div class="card-body text-center">
@@ -185,7 +185,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
