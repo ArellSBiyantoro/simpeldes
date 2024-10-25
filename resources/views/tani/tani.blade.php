@@ -82,6 +82,19 @@
         .door-icon {
             font-size: 30px;
         }
+        .backgroud-desa::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("{{ asset('img/banner-user-dashboard.webp') }}");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.6;
+        z-index: -1;
+    }
     </style>
 
     <!-- Navbar -->
@@ -94,7 +107,7 @@
     <div class="container-fluid">
 
         <!-- Main Section -->
-        <div class="container mt-4">
+        <div class="container mt-4 backgroud-desa" >
             <h1 class="text-center mb-4" style="color: #343a40;">Manajemen Irigasi IOT</h1>
 
             <!-- Sensor Data Cards -->
