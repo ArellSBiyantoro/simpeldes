@@ -39,7 +39,7 @@
                                         <th>Jenis Pelayanan</th>
                                         <th>Keterangan</th>
                                         <th>Status Pengajuan</th>
-                                        <th>Aksi</th>
+                                        <th>Hubungi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
