@@ -1,10 +1,7 @@
 
-# E Desa
+# Simpeldes Gonoharjo
 
-![Logo](https://e-desa.up.railway.app/img/logo.png)
-
-Project UAS Website Desa Sukamaju (Website layanan masyarakat desa sukamaju dalam mempermudah poses pelayanan seperti pembuatan dokumen identitas, pembuatan surat, dan pengaduan masyarakat desa sukamaju)
-
+Project PPK ORMAWA HIMA ILKOM UNNES yang bekerja sama dengan Desa Gonoharjo, Kendal untuk mengimplementasikan sistem pelayanan desa yang dikombinasikan dengan IOT Sistem perairan persawahan untuk membantu menaikkan kualitas produksi.
 
 
 Untuk Menjalakan Website di lokal :
